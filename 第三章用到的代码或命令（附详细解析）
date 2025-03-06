@@ -116,6 +116,46 @@ for file in CD276-Negative-Sequences/*.fas; do ./run_fea_gen.sh "$file"; done
 
 #生成job列表的代码我们也整合到Prepared-CD276.ipynb，读者可以对照书本的代码内容及Prepared-CD276.ipynb的内容进行
 
-#按照书籍内容修改joblist及exmaple3.sh进行运行
+#按照书籍内容修改joblist及exmaple3.sh进行运行，其余的数据及代码可以在github中找到
+
+3.5 AlphaFold 3
+# 从 GitHub 克隆 AlphaFold 3 仓库到本地
+git clone https://github.com/google-deepmind/alphafold3.git 
+
+# 使用 conda 创建一个名为 af3 的新虚拟环境，并指定 Python 版本为 3.11
+conda create -n af3 python=3.11 
+ 
+# 创建一个名为 af_db 的目录，路径为 home3/af3_db
+mkdir home3/af3_db
+ 
+# 进入到刚刚创建的目录 home3/af3_db
+cd home3/af3_db/
+ 
+# 运行 Python 脚本 fetch_databases.py，并指定下载目的地为当前目录（./）
+python3 fetch_databases.py --download_destination=./ 
+
+#然后，构建 Docker 容器。这将构建一个具有所有正确 Python 依赖项的容器
+docker build -t alphafold3 -f docker/Dockerfile .
+
+3.5.2 AlphaFold 3运行
+首先创建一个test的文件夹在AlphaFold 3下，拷贝test_epco.json及test.sh文件到目录下并赋予权限，
+
+# 给脚本文件 test.sh 添加可执行权限
+chmod +x test.sh
+
+#!/bin/bash
+# 运行名为 test.sh 的脚本
+bash test.sh
+ 
+#test_epco.json及test.sh文件可以在本github中找到
+
+3.5.4 AlphaFold3进行CD276与抗体库的筛选
+#具体的数据及run.sh可以在本github中找到
+
+
+
+
+
+
 
   
