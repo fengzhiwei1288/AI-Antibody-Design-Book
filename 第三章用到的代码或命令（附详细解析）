@@ -1,0 +1,7 @@
+3.4.2中 Github上获取并克隆AF2Complex，只需通过以下方式克隆此存储库到根目录：
+  git clone https://github.com/FreshAirTonight/af2complex 
+
+3.4.3下载遗传数据库
+  使用脚本scripts/download_all_data.sh(读者可以查看其完整代码）下载并设置完整数据库。这可能需要时间(下载大小为 556 GB)
+  scripts/download_all_data.sh <DOWNLOAD_DIR> > download.log 2> download_all.log &
+  
