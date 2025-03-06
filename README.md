@@ -76,7 +76,7 @@
     - [3.5.3 AlphaFold 3的结果解读](#353-alphafold-3的结果解读)
     - [3.5.4 AlphaFold3进行CD276与抗体库的筛选](#354-alphafold3进行cd276与抗体库的筛选)
   - [3.6 本章结语](#36-本章结语)
-  - ## 目录
+
 - [4. 扩散模型（Diffusion）蛋白质序列从头设计](#4-扩散模型Diffusion蛋白质序列从头设计)
   - [4.1 Diffusion模型的原理及框架](#41-Diffusion模型的原理及框架)
     - [4.1.1 Diffusion的扩散框架](#411-Diffusion的扩散框架)
