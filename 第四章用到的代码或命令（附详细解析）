@@ -1,0 +1,45 @@
+4.2 ProteinMPNN的搭建及调试
+
+# 安装 PyTorch、NumPy 和 Pandas 库 
+pip install torch numpy pandas 
+
+# 克隆 ProteinMPNN 的 GitHub 仓库
+git clone https://github.com/dauparas/ProteinMPNN.git 
+# 进入克隆的 ProteinMPNN 目录
+cd ProteinMPNN  
+
+# 创建一个新的 Conda 环境名为 mlfold
+conda create --name mlfold 
+# 激活刚创建的 mlfold 环境
+source activate mlfold  
+# 安装 PyTorch、TorchVision、Torchaudio 以及 CUDA 11.3 版本的工具包 
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch  
+pip3 install -r requirements.txt
+#如果出现：ERROR: Could not open requirements file: [Errno 2] No such file or directory: #'requirements.txt' 需要先创建该文件，才能进行安装，步骤如下：
+#1）打开cmd，进入到项目文件夹下
+#2）执行语句：pip freeze > requirements.txt
+#3）之后执行：pip install requirements.txt
+#4）配置完成，打开requirements.txt文件，可以看到一些配置信息。
+
+# 激活名为mlfold的conda环境
+conda activate mlfold
+
+# 运行protein_mpnn_run.py脚本，并指定模型权重文件的路径
+python protein_mpnn_run.py --path_to_model_weights ./vanilla_model_weights 
+
+# 运行 protein_mpnn_run.py 脚本，并指定模型名称为 v_48_020 
+python protein_mpnn_run.py --model_name v_48_020  
+
+可能会出现ModuleNotFoundError: No module named ‘numpy‘
+# 使用清华镜像源安装numpy库
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy 
+
+# 使用默认的PyPI源安装numpy库
+pip install numpy 
+
+
+
+
+
+
+ 
