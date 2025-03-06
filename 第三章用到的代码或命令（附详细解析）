@@ -2,6 +2,120 @@
   git clone https://github.com/FreshAirTonight/af2complex 
 
 3.4.3下载遗传数据库
-  使用脚本scripts/download_all_data.sh(读者可以查看其完整代码）下载并设置完整数据库。这可能需要时间(下载大小为 556 GB)
+  使用脚本scripts/download_all_data.sh(读者可以查看其完整代码）下载并设置完整数据库。这可能需要时间(下载大小为 556 GB)，详细代码解析，请查看本书籍内容
   scripts/download_all_data.sh <DOWNLOAD_DIR> > download.log 2> download_all.log &
+
+3.4.4下载其他组件
+首先打开run_fea_gen.sh，我们看到这脚本依赖几个第三方工具或库，包括了HHLIB, HMMER, KALIGN等。
+
+1. HHLIB
+# 克隆HH-suite的GitHub存储库
+# Clone the HH-suite GitHub repository
+git clone https://github.com/soedinglab/hh-suite.git
+ 
+# 进入克隆后的hh-suite目录
+# Navigate into the cloned hh-suite directory
+cd hh-suite
+ 
+# 创建构建目录并进入该目录
+# Create a build directory and enter it
+mkdir build && cd build
+
+# 使用cmake配置安装路径，指定安装位置为/desired/install/path
+# Configure the installation path using cmake, specifying the install location as /desired/install/path
+cmake -DCMAKE_INSTALL_PREFIX=/desired/install/path ..
+ 
+# 编译源代码
+# Compile the source code
+make
+ 
+# 安装编译后的程序
+# Install the compiled program
+make install
+
+#安装完成后，将路径 /desired/install/path 赋值给 HHLIB，如：
+/home/zes47/miniconda3/envs/af2
+
+注意：从run_fea_gen.sh可以看出，这里设置的路径为：
+# 设置HHLIB环境变量，指向AlphaFold所需的conda环境路径
+# Set the HHLIB environment variable to point to the conda environment required for AlphaFold
+export HHLIB="/home/zes47/miniconda3/envs/af2"
+
+主要是让程序找到：
+# 指定hhblits和hhsearch的二进制文件路径
+# Set the binary paths for hhblits and hhsearch
+--hhblits_binary_path=$HHLIB/bin/hhblits   \  # hhblits的二进制路径
+--hhsearch_binary_path=$HHLIB/bin/hhsearch \  # hhsearch的二进制路径
+
+2.HMMER
+# 更新系统中的软件包列表
+# Update the package list on the system
+sudo apt update
+
+# 安装 HMMER 工具包
+# Install the HMMER toolkit
+sudo apt install hmmer
+
+# 显示 hmmsearch 命令的帮助信息
+# Display the help information for the hmmsearch command
+hmmsearch -h
+
+3.	Kalign安装
+# 更新软件包列表
+# Update the package list
+sudo apt update
+ 
+# 安装 Kalign 对齐工具
+# Install the Kalign alignment tool
+sudo apt install kalign
+ 
+# 使用 kalign 查看帮助信息
+# Use kalign to view help information
+kalign -h
+
+# 查看 hmmsearch 和 kalign 的安装路径
+# Use 'which' to check the installation paths of hmmsearch and kalign
+ 
+which hmmsearch
+which kalign
+
+
+3.4.5案列演示1：gp120与J3用AF2Complex模建
+# 为脚本文件 run_fea_gen.sh 添加执行权限
+# Use chmod to add execute permissions to the run_fea_gen.sh script
+ 
+chmod +x run_fea_gen.sh
+
+# 返回上一级目录
+cd .. 
+ 
+# 遍历 nanoJ3 目录中的所有 .fas 文件，并对每个文件运行 run_fea_gen.sh 脚本
+# conda activate af2 用于激活 af2 环境，确保运行脚本时使用正确的 Python 环境
+for file in nanoJ3/*.fas; do conda activate af2 && ./run_fea_gen.sh "$file"; done
+
+建立一个job.lst如下
+##Target(components) Size(AAs) Name(for output)
+gp120/nanoJ3 600 gp120_nanj3_test 
+#前面为抗原及抗体的名称（需和两个.fas一样的名称），600为预估的氨基酸数目，生成“gp120_nanj3_test“结果文件夹
+
+拷贝一个example3.sh到当前目录，并按照本书籍上面内容修改（查看exemple3.sh）
+
+# 激活名为 "af2" 的 Conda 环境
+conda activate af2  
+# 在激活的环境中执行名为 "example3.sh" 的 Shell 脚本
+./example3.sh
+
+#其余操作，可以参考本书的内容及github提供的数据及脚本进行操作
+
+3.4.6案列演示2：利用AF2Complex进行CD276与抗体库的筛选
+当前脚本Prepared-CD276.ipynb与sequence.txt在同一个路径下，如/af2complex/example/Prepared-CD276.ipynb及/af2complex/example/sequence.txt)
+
+# 遍历 CD276-Negative-Sequences 文件夹中的每个 .fas 文件
+# 对每个文件运行 run_fea_gen.sh 脚本，将文件路径作为参数传递
+for file in CD276-Negative-Sequences/*.fas; do ./run_fea_gen.sh "$file"; done
+
+#生成job列表的代码我们也整合到Prepared-CD276.ipynb，读者可以对照书本的代码内容及Prepared-CD276.ipynb的内容进行
+
+#按照书籍内容修改joblist及exmaple3.sh进行运行
+
   
