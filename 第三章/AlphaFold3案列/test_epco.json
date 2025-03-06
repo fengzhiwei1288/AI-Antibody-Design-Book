@@ -1,0 +1,26 @@
+{
+  "name": "Epco_CD3E",
+  "sequences": [
+    {
+      "protein": {
+        "id": "E",
+        "sequence": "DGNEEMGGITQTPYKVSISGTTVILTCPQYPGSEILWQHNDKNIGGDEDDKNIGSDEDHLSLKEFSELEQSGYYVCYPRGSKPEDANFYLYLRARVCE"
+      }
+    },
+    {
+      "protein": {
+        "id": "H",
+        "sequence": "EVKLVESGGGLVQPGGSLRLSCAASGFTFNTYAMNWVRQAPGKGLEWVARIRSKYNNYATYYADSVKDRFTISRDDSKSSLYLQMNNLKTEDTAMYYCVRHGNFGNSYVSWFAYWGQGTLVTVSS"
+      }
+    },
+    {
+      "protein": {
+        "id": "L",
+        "sequence": "QAVVTQEPSFSVSPGGTVTLTCRSSTGAVTTSNYANWVQQTPGQAFRGLIGGTNKRAPGVPARFSGSLIGDKAALTITGAQADDESIYFCALWYSNLWVFGGGTKLTVL"
+      }
+    }
+  ],
+  "modelSeeds": [721682501],
+  "dialect": "alphafold3",
+  "version": 1
+}

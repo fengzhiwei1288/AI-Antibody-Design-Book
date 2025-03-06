@@ -1,0 +1,22 @@
+{
+  "name": "6_CD276",
+  "sequences": [
+    {
+      "protein": {
+        "id": "A",
+        "sequence": "EVQLVESGGGLVQPGGSLRLSCAASGFTFSNYGMSWVRQAPGKGLEWIGDVSYGASTHYKPSLKSLVTISRDNSKNTLYLQMNSLRAEDTALYYCARGDTVGATHIDYWGQGTLVTVSSSGQAG"
+      }
+    },
+    {
+      "protein": {
+        "id": "B",
+        "sequence": "EVQVPEDPVVALVGTDATLCCSFSPEPGFSLAQLNLIWQLTDTKQLVHSFAEGQDQGSAYANRTALFPDLLAQGNASLRLQRVRVADEGSFTCFVSIRDFGSAAVSLQVAA"
+      }
+    }
+  ],
+  "modelSeeds": [
+    721682501
+  ],
+  "dialect": "alphafold3",
+  "version": 1
+}

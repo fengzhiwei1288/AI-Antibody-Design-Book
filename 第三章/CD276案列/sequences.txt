@@ -1,0 +1,18 @@
+>1
+ E V Q L V E S G G G L V Q P G G S L R L S C A A S G F T F S S Y A M S W V R Q A P G Q G L E W M G W F N T Y T G N P T Y A Q G F T G R F T I S R D N S K N T L Y L Q M N S L R A E D A A L Y Y C T T D F G F P D W S L V S G R T I D Y W G Q G I L V T V S S S G Q A G
+>2
+E V Q L V E S G G G L V Q P G G S L R L S C A A S Y F S F D S Y E M S W V R Q A P G Q G L E W M G W I N S N T G N P T Y A Q G F T G R F T I S R D N S K N T L Y L Q M N S L R A E D T A L Y Y C A R G D D I L T G Y A H F D Y W G Q G T L V T V S S S G Q A G
+>3
+E V Q L V E S G G G L V Q P G G S L R L S C A A S S F Y F S Y Y E M S W V R Q A P G K G L E W I G S I Y Y S G S T Y Y N P S L K S L V T I S R D N S K N T L Y L Q M N S L R A E D T A V Y Y C A R S E G V V V V A A P P G Y W G Q G T L V T V S S S G Q A G 
+>4
+E V Q L V E S G G G L V Q P G G S L R L S C A A S Y F D F F N E E M S W V R Q A P G K G L E W V S Y I S S S S S T I Y Y A D S V K G R F T I S R D N S K N T L Y L Q M N S L R A E D T A T Y Y C A R K K D Y Y Y S L D L W G Q G T T V T V S S S G Q A G
+>5
+E V Q L V E S G G G L V Q P G G S L R L S C V A S G F T F S S Y A M H W V R Q A P G K G L E W V S S I S S S S S Y I Y Y A D S V K G R F T I S R D N S K N T L Y L Q M N S L R A E D T A M Y Y C A R G G I T G T T P I D Y W G Q G T L V T V S S S G Q A G 
+>6
+E V Q L V E S G G G L V Q P G G S L R L S C A A S G F T F S N Y G M S W V R Q A P G K G L E W I G D V S Y G A S T H Y K P S L K S L V T I S R D N S K N T L Y L Q M N S L R A E D T A L Y Y C A R G D T V G A T H I D Y W G Q G T L V T V S S S G Q A G
+>8
+E V Q L V E S G G G L V Q P G G S L R L S C A A S S F D F S Y Y E M S W V R Q A P G Q R L E W M G W I N T N T G N P T Y A Q G F T G R F T I S R D N S K N T L Y L Q M N S L R A E D T A V Y Y C A R T Y S H S I D Y W G Q G T L V T V S S S G Q A G
+>9
+E V Q L V E S G G G L V Q P G G S L R L S C A A S Y F S F D D Y E M S W V R Q A P G K G L E W M G I I Y P G D S D T R Y S P S F Q G Q V T I S R D N S K N T L Y L Q M N S L R A E D A A L Y Y C T T H I S M I V E A L R F D P W G Q G 
+>10
+E V Q L V E S G G G L V Q P G G S L R L S C A A S Y F A F Y D Y E M S W V R Q A P G K G L E W I G S I Y Y S G T T F Y N P S L K S L V T I S R D N S K N T L Y L Q M N S L R A E D T A M Y Y C A T G E L L E W G H G T Q V T V S S S G Q A G
