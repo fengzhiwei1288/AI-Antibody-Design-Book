@@ -1,177 +1,135 @@
 5.1 Training Set的采集及处理：
 
-1. 访问 SAbDab: The Structural Antibody Database，下载两个文件：sabdab_summary_all.tsv（汇总数据）和包含.pdb文件的压缩包（zip file），并将其保存到指定路径（例如：C:\Users\ZHF11\Downloads\pdbs）。
+1. 访问 SAbDab: The Structural Antibody Database，下载两个文件：
+   - sabdab_summary_all.tsv（汇总数据）
+   - 包含.pdb文件的压缩包（zip file）并将其保存到指定路径（例如：C:/Users/ZHF11/Downloads/pdbs）。
 
-2. 打开 all_structures 目录中的 chothia 文件夹，你将看到大约8078个不同的PDB文件。
+2. 打开 all_structures 目录中的 chothia 文件夹：
+   - 你将看到大约8078个不同的PDB文件。
 
-3. 安装 pdbget，并使用 pdbget 命令对8000多个PDB文件进行切割。关于脚本的详细解析，请参考GitHub文档。切割完成后，你将获得一个名为 split 的文件夹。
+3. 安装 pdbget，并使用 pdbget 命令对8000多个PDB文件进行切割：
+   - 关于脚本的详细解析，请参考GitHub文档。
 
-4. 在 split 文件夹内，每个PDB文件将以文件夹形式存在，文件夹名称与PDB文件名一致，且每个文件夹内的PDB文件已根据不同的链（chain）进行切割。
+4. 切割完成后，你将获得一个名为 split 的文件夹。
+   - 在 split 文件夹内，每个PDB文件将以文件夹形式存在：
+     - 文件夹名称与PDB文件名一致，且每个文件夹内的PDB文件已根据不同的链（chain）进行切割。
 
-5. 在与 split 文件夹同一级目录下，打开 PowerShell，创建一个新的文件夹：mkdir hchains。
+5. 在与 split 文件夹同一级目录下，打开 PowerShell，创建一个新的文件夹：
+   - 输入命令：`mkdir hchains`。
 
-6.输入以下命令进行处理，具体命令的解析请参考本书的第五章。
-###############################################################################
+6. 输入以下命令进行处理：
+
 for i in $(cat /mnt/c/Users/ZHF11/Downloads/pdbs/sabdab_summary_all.tsv | awk '{printf "%s", $1 "," $2 "=" toupper($2) "_"; if ($2 == tolower($2)) { print "@" $2 } else { print $2 } }'|grep -v NA|sort|uniq|head -n-1); do pdb=${i%,*}; tmp=${i#*,}; chain=${tmp%=*}; tmp=${tmp#*=}; chainup=${tmp%_*}; chainat=${tmp#*_}; echo $pdb, $chain; source="split/$pdb/${chain}_AminoAcids.pdb"; source2="split/$pdb/${chainup}_AminoAcids.pdb"; source3="split/$pdb/${chainat}_AminoAcids.pdb"; target="hchains/${pdb}_${chain}.pdb"; if test -e $target; then echo "  - skipped"; continue; fi; cp $source $target || cp $source2 $target || cp $source3 $target; done
-###############################################################################
-#该命令的目的是遍历 sabdab_summary_all.tsv 文件中每一行，提取 pdb 和链的信息，然后根据链的信息尝试从不同的文件路径中复制相应的 .pdb 文件到目标文件夹中，目标文件的命名规则为 pdb_链名.pdb。如果目标文件已存在，则跳过该文件。
 
-7.同理，在与 split 文件夹同一级目录下，打开 PowerShell，创建一个新的文件夹：mkdir lchains。
-###############################################################################
-for i in $(cat /mnt/c/Users/ZHF11/Downloads/pdbs/sabdab_summary_all.tsv | awk '{printf "%s", $1 "," $3 "=" toupper($3) "_"; if ($3 == tolower($3)) { print "@" $3 } else { print $3 } }'|grep -v NA|sort|uniq|head -n-1); do pdb=${i%,*}; tmp=${i#*,}; chain=${tmp%=*}; tmp=${tmp#*=}; chainup=${tmp%_*}; chainat=${tmp#*_}; echo $pdb, $chain; source="split/$pdb/${chain}_AminoAcids.pdb"; source2="split/$pdb/${chainup}_AminoAcids.pdb"; source3="split/$pdb/${chainat}_AminoAcids.pdb"; target="lchains/${pdb}_${chain}.pdb"; if test -e $target; then echo "  - skipped"; continue; fi; cp $source $target || cp $source2 $target || cp $source3 $target; done
-###############################################################################
+该命令的目的是遍历 sabdab_summary_all.tsv 文件中每一行，提取 pdb 和链的信息，然后根据链的信息尝试从不同的文件路径中复制相应的 .pdb 文件到目标文件夹中，目标文件的命名规则为 `pdb_链名.pdb`。如果目标文件已存在，则跳过该文件。
 
-8.去重：
-###############################################################################
-mkdir hchains_uniq：
-###############################################################################
-（1）输入以下脚本：
-###############################################################################
+7. 同理，在与 split 文件夹同一级目录下，打开 PowerShell，创建一个新的文件夹：
+   - 输入命令：`mkdir lchains`。
+
+8. 去重：
+   - 创建去重文件夹：`mkdir hchains_uniq`。
+
+9. 输入以下命令：
+
 cd hchains  # 进入 hchains 文件夹
- 
+
 for i in *.pdb; do  
     pdb=${i%_*}        # 提取文件名中 "_" 之前的部分，作为 pdb 的值
     chain=${i#*_}      # 提取文件名中 "_" 之后的部分，作为 chain 的值
     target=../hchains_uniq/$pdb.pdb  # 定义目标路径，将去重后的文件存储到 hchains_uniq 文件夹中
- 
+
     echo $i  # 输出当前处理的文件名
- 
+
     if test -e $target; then  # 检查目标文件是否已经存在
         echo "  -skipped"  # 如果目标文件已存在，跳过并提示
         continue            # 跳过当前循环，处理下一个文件
     fi
- 
+
     cp $i $target  # 如果目标文件不存在，则将当前文件复制到目标路径
 done
-###############################################################################  
 
-###############################################################################
-mkdir lchains_uniq
-###############################################################################
-（2）输入以下脚本：
-###############################################################################
-# 切换到 lchains 目录
+10. 创建去重文件夹：`mkdir lchains_uniq`。
+
+11. 输入以下命令：
+
 cd lchains
-###############################################################################
 
-###############################################################################
-# 遍历当前目录下所有 .pdb 文件
 for i in *.pdb; do 
-    # 提取文件名中的前缀部分，作为 pdb 的值
     pdb=${i%_*}
-    
-    # 提取文件名中的后缀部分，作为 chain 的值
     chain=${i#*_}
-    
-    # 设置目标路径，将唯一的 PDB 文件复制到 lchains_uniq 文件夹
     target=../lchains_uniq/$pdb.pdb
-    
-    # 打印当前处理的文件名
     echo $i
-    
-    # 如果目标文件已经存在，则跳过并输出提示
+
     if test -e $target; then 
         echo "  -skipped"
         continue
     fi
-    
-    # 如果目标文件不存在，则将当前文件复制到目标路径
+
     cp $i $target
 done
-###############################################################################
 
-10.统一修改Chain的信息：
-##############################################################################
-# 切换到 hchains_uniq 目录
+12. 统一修改Chain的信息：
+   - 切换到 hchains_uniq 目录：
+
 cd hchains_uniq
 
-###############################################################################
-# 遍历当前目录下的所有 .pdb 文件
 for i in *.pdb; do 
-    # 设置目标文件路径，将修改后的文件存储到 hchains_uniq_redacted 文件夹中
     target=../hchains_uniq_redacted/$i
-    
-    # 使用 sed 命令修改 PDB 文件内容：
-    # 将每行的第26列的字符替换为 'A'（保留前25列不变），并将修改后的内容写入目标文件
     sed 's/^\(.....................\)./\1A/g' $i > $target
-    
-    # 打印目标文件的第一行内容，验证修改是否正确
     head $target -n1
 done
-###############################################################################
-# 切换到 lchains_uniq 目录
+
+13. 切换到 lchains_uniq 目录：
+
 cd lchains_uniq
- 
-# 遍历当前目录下的所有 .pdb 文件
+
 for i in *.pdb; do 
-    # 设置目标文件路径，将修改后的文件存储到 lchains_uniq_redacted 文件夹中
     target=../lchains_uniq_redacted/$i
-    
-    # 使用 sed 命令修改 PDB 文件内容：
-    # 将每行的第26列的字符替换为 'B'（保留前25列不变），并将修改后的内容写入目标文件
     sed 's/^\(.....................\)./\1B/g' $i > $target
-    
-    # 打印目标文件的第一行内容，验证修改是否正确
     head $target -n1
 done
-###############################################################################
 
-#################################################################################################################################################################
-#################################################################################################################################################################
-#################################################################################################################################################################
 5.2 训练集（Training Set） 从.pdb 到.pt格式转换的处理过程
-1. 下载 maxit（https://sw-tools.rcsb.org/apps/MAXIT/index.html），点击download source，或直接输入以下网址：https://sw-tools.rcsb.org/apps/MAXIT/source.html
-压缩文件保存路径与前面split目录一直/ maxit-v11.100-prod-src.tar.gz（这里应为前面下载的抗体数据都存在同一个目录下）
 
-2.打开 Linux Shell，并执行以下命令
+1. 下载 maxit：
+   - 网址：MAXIT下载。
+   - 点击 download source，或直接输入以下网址：MAXIT源文件。
+
+2. 压缩文件保存路径与前面 split 目录一致：maxit-v11.100-prod-src.tar.gz（此处应与前面下载的抗体数据存放在同一目录）。
+
+3. 打开 Linux Shell，并执行以下命令：
+
 # 切换到目录 /mnt/c/Users/ZHF11/Downloads/pdbs
 zhf11@zhiwei-pogo:/mnt/c/Users/ZHF11/Downloads/pdbs$ 
- 
-# 使用 zcat 解压压缩文件 maxit-v11.100-prod-src.tar.gz，并通过管道将内容传递给 tar 命令解压
+
+4. 使用 zcat 解压压缩文件：
+
 zcat maxit-v11.100-prod-src.tar.gz | tar -xf
-###############################################################################
 
-3. # 切换到 maxit-v11.100-prod-src 目录
+5. 切换到 maxit-v11.100-prod-src 目录：
+
 cd maxit-v11.100-prod-src
- 
-# 执行 make 命令，生成二进制文件
+
+6. 执行 make binary：
+
 make binary
-###############################################################################
 
-4. # 设置 RCSBROOT 环境变量，指向 maxit-v11.100-prod-src 目录
+7. 设置 RCSBROOT 环境变量：
+
 RCSBROOT=/mnt/c/Users/ZHF11/Downloads/pdbs/maxit-v11.100-prod-src
- 
-# 导出 RCSBROOT 环境变量，使其在当前会话中生效
 export RCSBROOT
- 
-# 将 RCSBROOT/bin 目录添加到 PATH 环境变量的前面
-# 这样可以让系统在执行命令时优先查找 RCSBROOT/bin 目录中的可执行文件
 PATH="$RCSBROOT/bin:"$PATH
- 
-# 导出修改后的 PATH 环境变量，使其在当前会话中生效
 export PATH
- 
-# 中文注释：
-# 1. 通过设置 RCSBROOT 变量，可以方便地引用 maxit-v11.100-prod-src 目录。
-# 2. 导出 RCSBROOT 使得其他命令可以引用这个环境变量。
-# 3. 通过修改 PATH 变量，将 RCSBROOT/bin 目录加入到搜索路径中，以便可以直接执行该目录下的可执行文件。
-# 4. 使用 export 命令确保变量的修改对当前 shell 会话生效。 
 
-maxit
+8. 测试 maxit 是否安装成功并能运行：
 
-#测试你的maxit是否安装成功并能运行
-###############################################################################
-5. # 返回到上一级目录
+maxit  # 测试你的maxit是否安装成功并能运行
+
+9. 返回到上一级目录并列出文件：
+
 cd ..
- 
-# 列出当前目录下的所有文件和文件夹
 ls
-###############################################################################
 
-6. 输入以下命令：
-./ConvertToCif.sh （./ConvertToCif.sh脚本可以在本github找到）
-###############################################################################
+10. 输入以下命令：
 
-
-
-
+./ConvertToCif.sh
