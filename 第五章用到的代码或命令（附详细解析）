@@ -130,6 +130,6 @@ maxit  # 测试你的maxit是否安装成功并能运行
 cd ..
 ls
 
-10. 输入以下命令：
+10. 输入以下命令：（ConvertToCif.sh脚本可以查看本书籍的代码及详细解析）
 
 ./ConvertToCif.sh
