@@ -133,3 +133,40 @@ ls
 10. 输入以下命令：（ConvertToCif.sh脚本可以查看本书籍的代码及详细解析）
 
 ./ConvertToCif.sh
+
+11. 使用以下命令将 .cif 文件转换为 .cif.gz 格式 （假设现在的cif实在目录“Aug12_Converted_CIF”下），分别输入以下命令：
+
+cd Aug12_Converted_CIF
+for file in *.cif; do gzip -c "$file" > "../Compressed_CIF_Nov25/${file}.gz"; done
+
+12. 克隆 GitHub 上的 pdbx 项目到本地
+
+git clone https://github.com/soedinglab/pdbx
+
+13.安装 CMake 工具：（如果已经安装，则跳到第14步）
+
+sudo apt-get install cmake
+
+14. 安装pdbx：
+
+cd pdbx
+mkdir build
+cd build
+make install
+
+15. 使用 bash 脚本转化为.pt文件 
+（假设这些文件存放在 Compressed_CIF_Nov25 文件夹中，同时将脚本 multiple_convert_gz_to_pt.sh 和 parse_cif_noX_change.py 拷贝至该文件夹）
+
+./multiple_convert_gz_to_pt.sh
+
+5.3 Training Data的构建
+
+克隆 ProteinMPNN 的代码库到本地目录。在 training 目录下创建一个名为 pdb 的文件夹，并在其中新建一个名为 pt 的子文件夹。然后，将前面步骤中转换生成的 .pt 文件全部拷贝到该 pt 文件夹中
+
+5.4 Antibody数据集的Training策略及步骤
+
+1. 在 training 目录下，需要创建一个 .csv 文件和两个 .txt 文件，用于不同的数据处理需求。具体操作请查看本书的内容。
+
+5.5 Parameters的调整（具体操作请查看本书的内容）
+
+
