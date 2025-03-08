@@ -1,3 +1,4 @@
+
 4.2 ProteinMPNN的搭建及调试
 
 # 安装 PyTorch、NumPy 和 Pandas 库 
@@ -37,9 +38,3 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple numpy
 # 使用默认的PyPI源安装numpy库
 pip install numpy 
 
-
-
-
-
-
- 
