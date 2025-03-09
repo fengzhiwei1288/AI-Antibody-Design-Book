@@ -1,1 +1,53 @@
+1. 克隆 RFdiffusion 仓库到本地
+git clone https://github.com/RosettaCommons/RFdiffusion.git
+
+2.  进入 RFdiffusion 目录
+cd RFdiffusion
+
+3. 创建 models 文件夹并进入该文件夹
+mkdir models && cd models
+
+4. 依次下载以下模型权重文件
+# 下载基础模型权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/6f5902ac237024bdd0c176cb93063dc4/Base_ckpt.pt
+# 下载复合物基础模型权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/e29311f6f1bf1af907f9ef9f44b8328b/Complex_base_ckpt.pt
+# 下载复合物折叠基础模型权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/60f09a193fb5e5ccdc4980417708dbab/Complex_Fold_base_ckpt.pt
+# 下载序列重建模型权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/74f51cfb8b440f50d70878e05361d8f0/InpaintSeq_ckpt.pt
+# 下载序列重建折叠模型权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/76d00716416567174cdb7ca96e208296/InpaintSeq_Fold_ckpt.pt
+# 下载活性位点模型权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/5532d2e1f3a4738decd58b19d633b3c3/ActiveSite_ckpt.pt
+# 下载基础模型的第八轮权重文件
+wget http://files.ipd.uw.edu/pub/RFdiffusion/12fc204edeae5b57713c5ad7dcb97d39/Base_epoch8_ckpt.pt
+
+5.安装 SE3-Transformer
+# 使用conda创建虚拟环境并安装依赖包
+conda env create -f env/SE3nv.yml
+# 激活刚刚创建的虚拟环境
+conda activate SE3nv
+# 进入 SE3Transformer 目录
+cd env/SE3Transformer
+# 安装所需的 Python 包
+pip install --no-cache-dir -r requirements.txt
+# 安装 SE3-Transformer
+python setup.py install
+# 返回到 RFdiffusion 仓库根目录
+cd ../..  
+# 安装 RFdiffusion 模块
+pip install -e .  # 安装 rfdiffusion 模块
+# 激活 SE3nv 环境
+conda activate SE3nv
+
+6. 获取 PPI Scaffold 示例
+# 解压 PPI 示例支架文件
+tar -xvf examples/ppi_scaffolds_subset.tar.gz -C examples/
+
+7.运行扩散脚本
+python run_inference.py
+
+
+
 
